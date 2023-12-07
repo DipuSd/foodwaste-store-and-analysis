@@ -1,0 +1,25 @@
+<%- include('partial/header.ejs') %>
+<div class="container bar-chart">
+  <h4 style="text-align: center">Foodwaste by Country</h4>
+  <canvas id="foodwaste-by-country" width="50" height="15"></canvas>
+</div>
+
+<div class="container bar-chart">
+  <h4 style="text-align: center">Foodwaste by City</h4>
+  <canvas id="foodwaste-by-city" width="50" height="15"></canvas>
+</div>
+
+<div class="container pie-chart">
+  <h4 style="text-align: center">Foodwaste by Source</h4>
+  <canvas id="foodwaste-by-source" width="50" height="15"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="js/dashboard.js"></script>
+
+<script>
+  drawCountryWiseBarChart();
+  drawCityWiseBarChart();
+  drawSourceWisePieChart();
+</script>
+<%- include('partial/footer.ejs') %>

@@ -1,0 +1,11 @@
+.bar-chart {
+    /* background-color: aqua; */
+    margin-top: 50px;
+}
+
+.pie-chart {
+    /* background-color: bisque; */
+    margin-top: 50px;
+    height: 80vh;
+    width: 80vh;
+}
