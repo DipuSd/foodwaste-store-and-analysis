@@ -13,15 +13,15 @@ app.get("/", async (req, res) => {
 });
 
 app.get("/contribute", (req, res) => {
-  res.render("contribute", { title: "Contribute Data" });
+  res.render("contributeData", {countries: null, cities: null, sources: null, categories: null});
 });
 
 app.get("/review", (req, res) => {
-  res.render("review", { title: "Review Data" });
+  res.render("contributorDashboard");
 });
 
 app.get("/others", (req, res) => {
-  res.render("others", { title: "Others Data" });
+  res.render("contributorLogin");
 });
 
 const dashboardApiRouter = require("./routes/dashboard")
