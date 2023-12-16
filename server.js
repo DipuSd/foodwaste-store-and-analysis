@@ -80,6 +80,9 @@ app.use("/api/dashboard", dashboardApiRouter)
 const cityApiRouter = require("./routes/city")
 app.use("/api/cities", cityApiRouter)
 
+const sourceApiRouter = require("./routes/source")
+app.use("/api/sources", sourceApiRouter)
+
 app.listen(port, () => {
   console.log(`Foodwaste app listening on port ${port}`);
 });

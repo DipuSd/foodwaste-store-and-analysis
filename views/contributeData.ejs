@@ -33,9 +33,6 @@
           <br>
           <select name="sourceID" id="sourceID">
             <option value="" selected disabled>Select One</option>
-            <% locals.sources.map(source => { %>
-              <option value="<%= source.sourceID %>"> <%= source.sourceName %></option>
-              <% }) %>
           </select>
           </select>
         </div>
@@ -112,10 +109,11 @@
 </style>
 
 <script>
+
   $('select[name=countryID]').on('change', function() {
     const selectedCountryID = $(this).find(":selected").val();
     populateCitySelect(selectedCountryID)
-}); 
+  }); 
 
 
   const populateCitySelect = (selectedCountryID) => {
@@ -127,6 +125,25 @@
         $('select[name=cityID]').append(`<option value="" selected disabled>Select One</option>`)
         data.map(city => {
           $('select[name=cityID]').append(`<option value="${city.cityID}">${city.cityName}</option>`)
+        })
+      })
+    }
+  }
+
+  $('select[name=cityID]').on('change', function() {
+    const selectedCityID = $(this).find(":selected").val();
+    populateSourceSelect(selectedCityID)
+  }); 
+
+  const populateSourceSelect = (selectedCityID) => {
+    if (selectedCityID) {
+      fetch(`/api/sources?cityID=${selectedCityID}`)
+      .then(res => res.json())
+      .then(data => {
+        $('select[name=sourceID]').empty()
+        $('select[name=sourceID]').append(`<option value="" selected disabled>Select One</option>`)
+        data.map(source => {
+          $('select[name=sourceID]').append(`<option value="${source.sourceID}">${source.sourceName}</option>`)
         })
       })
     }

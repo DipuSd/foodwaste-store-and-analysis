@@ -5,4 +5,9 @@ const findAllSources = async () => {
     return sources;
 }
 
-module.exports = { findAllSources }
+const findAllSourceByCityId = async (cityId) => {
+    const [sources] = await pool.query('select s.* from citysource c join source s on c.sourceID = s.sourceID where c.cityID = ?', [cityId])
+    return sources;
+}
+
+module.exports = { findAllSources, findAllSourceByCityId }
