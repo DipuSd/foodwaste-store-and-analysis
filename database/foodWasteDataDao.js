@@ -21,5 +21,8 @@ const insertWasteCategoryData = async (data) => {
         }
     })
 }
-
-module.exports = { saveNewFoodWasteData }
+const getWholeTable = async () => {
+    const [data] = await pool.query('SELECT * FROM foodwastedata')
+    return data
+}
+module.exports = { saveNewFoodWasteData, getWholeTable }

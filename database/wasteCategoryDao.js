@@ -5,4 +5,9 @@ const findAllWasteCategory = async () => {
     return wasteCategories;
 }
 
-module.exports = { findAllWasteCategory } 
+const getWholeWasteCategoryTable = async () => {
+    const [wasteCategoryTable] = await pool.query('SELECT * FROM foodwastedatacategorytable')
+    return wasteCategoryTable
+}
+
+module.exports = { findAllWasteCategory, getWholeWasteCategoryTable } 

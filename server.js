@@ -71,6 +71,44 @@ app.get("/others", (req, res) => {
   res.render("others");
 });
 
+const { getWholeTable } = require("./database/foodWasteDataDao")
+
+app.get('/api/foodwaste-data', async (req, res) => {
+  try {
+    const data = await getWholeTable()
+    res.json(data)
+  }
+  catch (err) {
+    res.status(500).json("Table data not found")
+  }
+});
+
+const { findAllWasteCategory } = require('./database/wasteCategoryDao')
+
+app.get('/api/wasteCategory', async (req, res) => {
+  try {
+    const data = await findAllWasteCategory()
+    res.json(data)
+  }
+  catch (err) {
+    res.status(500).json("Table data not found")
+  }
+});
+
+const { getWholeWasteCategoryTable } = require("./database/wasteCategoryDao")
+
+app.get('/api/foodwasteCategory-table', async (req, res) => {
+  try {
+    const data = await getWholeWasteCategoryTable()
+    res.json(data)
+  }
+  catch (err) {
+    res.status(500).json("Table data not found")
+  }
+});
+
+
+
 const dashboardApiRouter = require("./routes/dashboard")
 app.use("/api/dashboard", dashboardApiRouter)
 

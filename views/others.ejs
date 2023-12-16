@@ -1,5 +1,106 @@
 <%- include('partial/header.ejs') %>
-<div>
-    <h4>This is the others page</h4>
+<!-- views/dashboard.ejs -->
+
+<div class="container mt-5">
+  <h1>Foodwaste Data</h1>
+  <table id="foodwasteData" class="table table-bordered">
+    <thead class="thead-dark">
+      <tr>
+        <th>Data ID</th>
+        <th>Source ID</th>
+        <th>Contributor ID</th>
+        <th>City ID</th>
+        <th>Country ID</th>
+        <th>Reason</th>
+        <th>Quantity</th>
+        <th>Waste Generation Date</th>
+        <th>Contribution Time</th>
+        <th>Contribution Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Data will be dynamically added here using JavaScript -->
+    </tbody>
+  </table>
+
+  <h1>Foodwastecategory Data</h1>
+  <table id="wasteCategory" class="table table-bordered">
+    <thead class="thead-dark">
+      <tr>
+        <th>Data ID</th>
+        <th>Category ID</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Data will be dynamically added here using JavaScript -->
+    </tbody>
+  </table>
+
+  <h1>Foodwaste Category Table</h1>
+  <table id="categoryData" class="table table-bordered">
+    <thead class="thead-dark">
+      <tr>
+        <th>Data ID</th>
+        <th>Category ID</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Data will be dynamically added here using JavaScript -->
+    </tbody>
+  </table>
 </div>
+<!-- <script src="../public/js/other.js" defer></script> -->
+<script>
+  const populateFoodwasteTable = async () => {
+    const data = await fetch('/api/foodwaste-data').then((res) => res.json())
+    console.log(data)
+    const tableBody = document.getElementById("foodwasteData")
+    data.forEach(row => {
+        const tr = document.createElement('tr')
+        tr.innerHTML = `
+            <td>${row.dataID}</td>
+            <td>${row.sourceID}</td>
+            <td>${row.contributorID}</td>
+            <td>${row.cityID}</td>
+            <td>${row.countryID}</td>
+            <td>${row.reason}</td>
+            <td>${row.quantity}</td>
+            <td>${row.wasteGenerationDate.slice(0, 10)}</td>
+            <td>${row.contributionTime}</td>
+            <td>${row.contributionDate.slice(0, 10)}</td>
+        
+        `
+        tableBody.appendChild(tr)
+    });
+}
+const populateWasteCategoryTable = async () => {
+    const data = await fetch('/api/wasteCategory').then((res) => res.json())
+    console.log(data)
+    const tableBody = document.getElementById("wasteCategory")
+    data.forEach(row => {
+        const tr = document.createElement('tr')
+        tr.innerHTML = `
+            <td>${row.categoryID}</td>
+            <td>${row.wasteCategory}</td>
+        `
+        tableBody.appendChild(tr)
+    });
+}
+const populateWasteCategoryTableTable = async () => {
+    const data = await fetch('/api/foodwasteCategory-table').then((res) => res.json())
+    const tableBody = document.getElementById("categoryData")
+    data.forEach(row => {
+        const tr = document.createElement('tr')
+        tr.innerHTML = `
+            <td>${row.dataID}</td>
+            <td>${row.categoryID}</td>
+        `
+        tableBody.appendChild(tr)
+    });
+}
+    populateFoodwasteTable()
+    populateWasteCategoryTable()
+    populateWasteCategoryTableTable()
+</script>
+
 <%- include('partial/footer.ejs') %>
