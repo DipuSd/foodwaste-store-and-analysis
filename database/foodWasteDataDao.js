@@ -1,0 +1,25 @@
+const pool = require('./db')
+
+const saveNewFoodWasteData = async (data) => {
+    const [result] = await pool.query(`insert into 
+    foodwastedata(sourceID, contributorID, cityID,  countryID, reason, quantity, wasteGenerationDate, contributionTime, contributionDate) 
+    values (?, ?, ?, ?, ?, ?, ?, current_time(), current_date());`, [data.sourceID, data.contributorID, data.cityID, data.countryID, data.reason, data.quantity, data.wasteGenerationDate])
+
+    const newFoodWasteDataID = result.insertId
+    insertWasteCategoryData({ foodWasteDataID: newFoodWasteDataID, wasteCategoryIds: data.foodWasteCategories })
+}
+
+const insertWasteCategoryData = async (data) => {
+    let values = []
+    data.wasteCategoryIds.map(categoryID => {
+        values.push([data.foodWasteDataID, categoryID])
+    })
+
+    await pool.query(`insert into foodwastedatacategorytable (dataID, categoryID) values ?`, [values], err => {
+        if (err) {
+            throw err
+        }
+    })
+}
+
+module.exports = { saveNewFoodWasteData }
