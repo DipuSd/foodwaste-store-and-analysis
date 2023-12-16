@@ -3,6 +3,7 @@ const router = express.Router()
 
 const { findOneContributorInfoById, findContributionCountByContributorId } = require('../database/contributroDao')
 const { findAllCountry } = require('../database/countryDao')
+const { findAllWasteCategory } = require('../database/wasteCategoryDao')
 
 router.get("/dashboard", async (req, res) => {
     let contributor = req.session.contributor
@@ -14,7 +15,9 @@ router.get("/dashboard", async (req, res) => {
 
 router.get('/new', async (req, res) => {
     const countries = await findAllCountry()
-    res.render('contributeData', { title: 'Contribute New Data', countries: countries })
+    const wasteCategories = await findAllWasteCategory()
+
+    res.render('contributeData', { title: 'Contribute New Data', countries: countries, wasteCategories: wasteCategories })
 })
 
 module.exports = router

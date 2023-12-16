@@ -76,19 +76,16 @@
 
         <div class="form-group">
           <label for="foodWasteCategory"
-            >Food Waste Category (comma-separated):</label
+            >Food Waste Category</label
           >
-          <input
-            type="text"
-            class="form-control"
-            id="foodWasteCategory"
-            name="foodWasteCategory"
-            required
-          />
-          <small class="form-text text-muted"
-            >Enter multiple categories separated by commas (e.g., Fruits,
-            Vegetables).</small
-          >
+          <br>
+          <select name="foodWasteCategories" id="foodWasteCategory" multiple>
+            <option value="" disabled>Select Multiple</option>
+
+            <% locals.wasteCategories.map(wasteCategory => { %>
+              <option value="<%= wasteCategory.categoryID%>"> <%= wasteCategory.wasteCategory %></option>
+              <% }) %>
+          </select>
         </div>
 
         <button type="submit" class="btn btn-primary">Submit</button>
