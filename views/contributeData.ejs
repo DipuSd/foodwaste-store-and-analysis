@@ -18,18 +18,6 @@
             required
           />
         </div>
-
-        <div class="form-group">
-          <label for="cityName">City Name:</label>
-          <input
-            type="text"
-            class="form-control"
-            id="cityName"
-            name="cityName"
-            required
-          />
-        </div>
-
         <div class="form-group">
           <label for="countryID">Country</label>
           <br>
@@ -39,6 +27,14 @@
             <% locals.countries.map(country => { %>
               <option value="<%= country.countryID %>"> <%= country.countryName %></option>
               <% }) %>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="cityID">City</label>
+          <br>
+          <select name="cityID", id="cityID">
+            <option value="" selected disabled>Select One</option>
           </select>
         </div>
 
@@ -112,5 +108,26 @@
     max-height: 100%;
   }
 </style>
+
+<script>
+  $('select[name=countryID]').on('change', function() {
+    const selectedCountryID = $(this).find(":selected").val();
+    populateCitySelect(selectedCountryID)
+}); 
+
+
+  const populateCitySelect = (selectedCountryID) => {
+    if (selectedCountryID) {
+      fetch(`/api/cities?countryID=${selectedCountryID}`)
+      .then(res => res.json())
+      .then(data => {
+        data.map(city => {
+          $('select[name=cityID]').append(`<option value="${city.cityID}">${city.cityName}</option>`)
+        })
+      })
+    }
+  }
+
+</script>
 
 <%- include('partial/footer.ejs') %>

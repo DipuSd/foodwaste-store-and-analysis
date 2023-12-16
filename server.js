@@ -77,6 +77,9 @@ app.get("/others", (req, res) => {
 const dashboardApiRouter = require("./routes/dashboard")
 app.use("/api/dashboard", dashboardApiRouter)
 
+const cityApiRouter = require("./routes/city")
+app.use("/api/cities", cityApiRouter)
+
 app.listen(port, () => {
   console.log(`Foodwaste app listening on port ${port}`);
 });
