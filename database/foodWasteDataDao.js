@@ -10,8 +10,9 @@ const saveNewFoodWasteData = async (data) => {
 }
 
 const insertWasteCategoryData = async (data) => {
-    let values = []
-    data.wasteCategoryIds.map(categoryID => {
+    let values = [];
+    // converting even single waste category from client to array
+    [].concat(data.wasteCategoryIds).map(categoryID => {
         values.push([data.foodWasteDataID, categoryID])
     })
 
