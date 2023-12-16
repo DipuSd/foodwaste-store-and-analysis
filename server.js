@@ -66,12 +66,9 @@ app.post('/login', async (req, res) => {
 const contributeRouter = require("./routes/contribute")
 app.use('/contribute', authorizeContrubutor, contributeRouter)
 
-app.get("/review", (req, res) => {
-  res.render("contributorDashboard");
-});
 
 app.get("/others", (req, res) => {
-  res.render("contributorLogin");
+  res.render("others");
 });
 
 const dashboardApiRouter = require("./routes/dashboard")
