@@ -9,16 +9,6 @@
 
       <form action="/food-waste-data" method="post">
         <div class="form-group">
-          <label for="sourceName">Source Name:</label>
-          <input
-            type="text"
-            class="form-control"
-            id="sourceName"
-            name="sourceName"
-            required
-          />
-        </div>
-        <div class="form-group">
           <label for="countryID">Country</label>
           <br>
           <select name="countryID" id="countryID">
@@ -35,6 +25,18 @@
           <br>
           <select name="cityID", id="cityID">
             <option value="" selected disabled>Select One</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="sourceID">Source</label>
+          <br>
+          <select name="sourceID" id="sourceID">
+            <option value="" selected disabled>Select One</option>
+            <% locals.sources.map(source => { %>
+              <option value="<%= source.sourceID %>"> <%= source.sourceName %></option>
+              <% }) %>
+          </select>
           </select>
         </div>
 
@@ -121,6 +123,8 @@
       fetch(`/api/cities?countryID=${selectedCountryID}`)
       .then(res => res.json())
       .then(data => {
+        $('select[name=cityID]').empty()
+        $('select[name=cityID]').append(`<option value="" selected disabled>Select One</option>`)
         data.map(city => {
           $('select[name=cityID]').append(`<option value="${city.cityID}">${city.cityName}</option>`)
         })
