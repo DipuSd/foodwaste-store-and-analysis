@@ -8,6 +8,7 @@ MYSQL_PORT='3306'
 MYSQL_USERNAME='your server username'
 MYSQL_PASSWORD='your server password'
 MYSQL_DATABASE='foodwaste'
+SESSION_SECRET_KEY='super-secret-key'
 ```
 
 - Now run the following command in terminal `npm run devStart`
